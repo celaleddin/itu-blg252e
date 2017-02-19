@@ -1,0 +1,11 @@
+443369  Ahmet Turhan    MAT101  90
+443369  Ahmet Turhan    BLG102  70
+443369  Ahmet Turhan    EHB205  80
+704326  Furkan Gunsel   MAT102  75
+704326  Furkan Gunsel   EHB303  95
+604283  Kemal Yakut     MAT101  60
+604283  Kemal Yakut     MAT102  80
+604283  Kemal Yakut     BLG102  50
+187194  Bulent Turker   EHB205  60
+187194  Bulent Turker   EHB401  100
+187194  Bulent Turker   EHB107  70

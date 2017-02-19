@@ -1,18 +1,20 @@
-/****************************
- Student Number: 040130332
- Student Name: Celaleddin Hidayetoğlu
- Course: BLG252E
- CRN: 11922
- Term: 2016-Fall
- Homework: #1
- ***************************/
+/***************************************
+Student Number : 040130332
+Student Name   : Celaleddin Hidayetoglu
+Course         : BLG252E
+CRN            : 11922
+Term           : 2016-Fall
+Homework       : #1
+***************************************/
 
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
 #define PI 3.14159265
 
 using namespace std;
+
 
 class Point {
     public:
@@ -23,11 +25,13 @@ class Point {
         Point transformation(int code_of_axis, int rotation_angle);
 };
 
+
 Point::Point(void) {
     x = 0;
     y = 0;
     z = 0;
 }
+
 
 Point::Point(float a, float b, float c) {
     x = a;
@@ -35,17 +39,11 @@ Point::Point(float a, float b, float c) {
     z = c;
 }
 
-Point Point::transformation(int code_of_axis, int rotation_angle) {
-    double angle;
+
+Point Point::transformation(int code_of_axis, int angle) {
     Point new_point(x, y, z);
 
-    if (rotation_angle >= 0 && rotation_angle <= 360) // degrees to radian
-        angle = rotation_angle * PI / 180;
-
-    else if (rotation_angle < 0 && rotation_angle >= -360)
-        angle = (360 + rotation_angle) * PI / 180;
-
-    else {
+    if (angle < -360 || angle > 360) {
         cout << "Please enter a valid angle." << endl;
         return new_point;
     }
@@ -71,9 +69,10 @@ Point Point::transformation(int code_of_axis, int rotation_angle) {
 
         default:
             cout << "Please enter a valid rotation code." << endl;
-            break;
+            return new_point;
     }
 }
+
 
 Point operator-(const Point &p1, const Point &p2) {
     Point result_point;
@@ -85,11 +84,13 @@ Point operator-(const Point &p1, const Point &p2) {
     return result_point;
 }
 
+
 void operator-=(Point &p1, const Point &p2) {
     p1.x = p1.x - p2.x;
     p1.y = p1.y - p2.y;
     p1.z = p1.z - p2.z;
 }
+
 
 Point operator+(const Point &p1, const Point &p2) {
     Point result_point;
@@ -101,11 +102,13 @@ Point operator+(const Point &p1, const Point &p2) {
     return result_point;
 }
 
+
 void operator+=(Point &p1, const Point &p2) {
     p1.x = p1.x + p2.x;
     p1.y = p1.y + p2.y;
     p1.z = p1.z + p2.z;
 }
+
 
 Point operator*(float scale_factor, const Point &p) {
     Point result_point;
@@ -117,6 +120,7 @@ Point operator*(float scale_factor, const Point &p) {
     return result_point;
 }
 
+
 Point operator*(const Point &p, float scale_factor) {
     Point result_point;
 
@@ -127,21 +131,24 @@ Point operator*(const Point &p, float scale_factor) {
     return result_point;
 }
 
+
 ostream &operator<<(ostream &out, const Point &p) {
     out << p.x << '\t' << p.y << '\t' << p.z << '\n';
 
     return out;
 }
 
-bool operator>=(const Point &p1, const Point &p2) {
-    int hyp1 = sqrt(pow(p1.x, 2) + pow(p1.y, 2) + pow(p1.z, 2));
-    int hyp2 = sqrt(pow(p1.x, 2) + pow(p1.y, 2) + pow(p1.z, 2));
 
-    if (hyp1 >= hyp2)
+bool operator>=(const Point &p1, const Point &p2) {
+    int dist1 = sqrt(pow(p1.x, 2) + pow(p1.y, 2) + pow(p1.z, 2));
+    int dist2 = sqrt(pow(p1.x, 2) + pow(p1.y, 2) + pow(p1.z, 2));
+
+    if (dist1 >= dist2)
         return true;
     else
         return false;
 }
+
 
 int main(void) {
     Point p1, p5, p6, p7;
@@ -161,9 +168,20 @@ int main(void) {
     p8 = p8.transformation(2, -30);
     p8 = p8.transformation(3, 60);
 
-    cout << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << '\n';
+    cout << setprecision(4)
+         << "p1:\t" << p1
+         << "p2:\t" << p2
+         << "p3:\t" << p3
+         << "p4:\t" << p4
+         << "p5:\t" << p5
+         << "p6:\t" << p6
+         << "p7:\t" << p7
+         << "p8:\t" << p8
+         << '\n';
 
-    cout << p3 + p5 << '\n';
+    cout << "p3 + p5:\t" << p3 + p5;
+
+    cout << "(distance from p3 + p5 to origin) >= (distance from p4 to origin):\t";
 
     if ((p3 + p5) >= p4)
         cout << "condition is true" << '\n';
